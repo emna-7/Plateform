@@ -160,3 +160,4 @@ echo "- secrets-scan-report.html"
 echo "- secrets-found.txt (if any secrets found)"
 echo "- exposed-files.txt (if any exposed files found)"
 echo "- git-secrets.txt (if any secrets in git history)"
+

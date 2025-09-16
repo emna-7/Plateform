@@ -203,3 +203,4 @@ echo "- trivy-secrets.json/txt"
 echo "- trivy-config.json/txt"
 echo "- trivy-report.html"
 echo "- dockerfile-analysis.txt"
+

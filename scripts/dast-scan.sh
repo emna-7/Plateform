@@ -145,3 +145,4 @@ print_status "✅ DAST scan completed!"
 echo "📄 Reports generated:"
 echo "- dast-report.html"
 echo "- zap-baseline-report.html (if OWASP ZAP was used)"
+
