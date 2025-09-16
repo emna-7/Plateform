@@ -37,12 +37,14 @@ pipeline {
         }
         
         stage('Debug Workspace') {
-                    steps {
-                        script {
-                    if (isUnix()) {
-                        sh 'ls -la'
-                    } else {
-                        bat 'dir /b'
+            steps {
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'ls -la'
+                        } else {
+                            bat 'dir /b'
+                        }
                     }
                 }
             }
@@ -50,28 +52,32 @@ pipeline {
 
         stage('Check Node Version') {
             tools { nodejs 'Node22' }
-                    steps {
-                script {
-                    if (isUnix()) {
-                        sh 'node -v'
-                        sh 'npm -v'
-                    } else {
-                        bat 'node -v'
-                        bat 'npm -v'
+            steps {
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'node -v'
+                            sh 'npm -v'
+                        } else {
+                            bat 'node -v'
+                            bat 'npm -v'
+                        }
                     }
                 }
             }
         }
 
         stage('Check PATH') {
-                    steps {
-                script {
-                    if (isUnix()) {
-                        sh 'echo $PATH'
-                        sh 'which node || command -v node || true'
-                    } else {
-                        bat 'echo %PATH%'
-                        bat 'where node'
+            steps {
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'echo $PATH'
+                            sh 'which node || command -v node || true'
+                        } else {
+                            bat 'echo %PATH%'
+                            bat 'where node'
+                        }
                     }
                 }
             }
@@ -79,14 +85,16 @@ pipeline {
 
         stage('Install') {
             tools { nodejs 'Node22' }
-                    steps {
-                        script {
-                    if (isUnix()) {
-                        sh 'node -v && npm -v'
-                        sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
-                    } else {
-                        bat 'node -v & npm -v'
-                        bat 'if exist package-lock.json (npm ci --prefer-offline --no-audit) else (npm install --no-audit)'
+            steps {
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'node -v && npm -v'
+                            sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
+                        } else {
+                            bat 'node -v & npm -v'
+                            bat 'if exist package-lock.json (npm ci --prefer-offline --no-audit) else (npm install --no-audit)'
+                        }
                     }
                 }
             }
@@ -95,13 +103,15 @@ pipeline {
         stage('Lint & Type Check') {
             tools { nodejs 'Node22' }
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm run lint || true'
-                        sh 'npm run check'
-                    } else {
-                        bat 'npm run lint || exit /b 0'
-                        bat 'npm run check'
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm run lint || true'
+                            sh 'npm run check'
+                        } else {
+                            bat 'npm run lint || exit /b 0'
+                            bat 'npm run check'
+                        }
                     }
                 }
             }
@@ -110,11 +120,13 @@ pipeline {
         stage('Test') {
             tools { nodejs 'Node22' }
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm test -- --coverage --watchAll=false --passWithNoTests'
-                    } else {
-                        bat 'npm test -- --coverage --watchAll=false --passWithNoTests'
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm test -- --coverage --watchAll=false --passWithNoTests'
+                        } else {
+                            bat 'npm test -- --coverage --watchAll=false --passWithNoTests'
+                        }
                     }
                 }
             }
@@ -123,13 +135,15 @@ pipeline {
         stage('Build') {
             tools { nodejs 'Node22' }
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm run build'
-                        sh '[ -d "dist" ] || (echo "dist not found" && exit 1)'
-                    } else {
-                        bat 'npm run build'
-                        bat 'if not exist dist (echo dist not found & exit /b 1)'
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh 'npm run build'
+                            sh '[ -d "dist" ] || (echo "dist not found" && exit 1)'
+                        } else {
+                            bat 'npm run build'
+                            bat 'if not exist dist (echo dist not found & exit /b 1)'
+                        }
                     }
                 }
             }
