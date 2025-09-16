@@ -31,6 +31,7 @@ pipeline {
         }
 
         stage('Check Node Version') {
+                    tools { nodejs 'Node18' }
                     steps {
                 script {
                     if (isUnix()) {
@@ -45,6 +46,7 @@ pipeline {
         }
 
         stage('Install') {
+                    tools { nodejs 'Node18' }
                     steps {
                         script {
                     if (isUnix()) {
