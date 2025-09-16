@@ -83,6 +83,57 @@ pipeline {
             }
         }
 
+        stage('Pre-commit Hooks') {
+            tools { nodejs 'Node22' }
+            steps {
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (isUnix()) {
+                            sh '''
+                                echo "🔧 Installing pre-commit hooks..."
+                                pip install pre-commit || echo "pip not available, skipping pre-commit"
+                                
+                                if command -v pre-commit >/dev/null 2>&1; then
+                                    echo "✅ Running pre-commit hooks..."
+                                    pre-commit run --all-files || echo "Pre-commit hooks failed, continuing..."
+                                else
+                                    echo "⚠️ pre-commit not available, running basic checks..."
+                                    
+                                    # Basic file checks
+                                    echo "Checking for trailing whitespace..."
+                                    find . -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | xargs grep -l " $" || echo "No trailing whitespace found"
+                                    
+                                    echo "Checking for large files..."
+                                    find . -size +1M -not -path "./node_modules/*" -not -path "./.git/*" || echo "No large files found"
+                                    
+                                    echo "Checking JSON files..."
+                                    find . -name "*.json" -not -path "./node_modules/*" | xargs -I {} sh -c 'echo "Checking {}" && python -m json.tool {} > /dev/null' || echo "JSON validation failed"
+                                fi
+                            '''
+                        } else {
+                            bat '''
+                                echo "🔧 Installing pre-commit hooks..."
+                                pip install pre-commit || echo "pip not available, skipping pre-commit"
+                                
+                                where pre-commit >nul 2>&1
+                                if %errorlevel% == 0 (
+                                    echo " Running pre-commit hooks..."
+                                    pre-commit run --all-files || echo "Pre-commit hooks failed, continuing..."
+                                ) else (
+                                    echo " pre-commit not available, running basic checks..."
+                                    
+                                    echo "Checking for large files..."
+                                    for /r %%f in (*) do if %%~zf gtr 1048576 echo Large file: %%f
+                                    
+                                    echo "Basic checks completed"
+                                )
+                            '''
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Lint & Type Check') {
             tools { nodejs 'Node22' }
             steps {

@@ -24,7 +24,10 @@
     "security:pipeline": "./scripts/security-pipeline.sh",
     "deploy:staging": "./scripts/deploy.sh staging",
     "deploy:production": "./scripts/deploy.sh production",
-    "health:check": "./scripts/health-check.sh"
+    "health:check": "./scripts/health-check.sh",
+    "pre-commit:install": "pre-commit install",
+    "pre-commit:run": "pre-commit run --all-files",
+    "pre-commit:setup": "node -e \"process.platform === 'win32' ? require('child_process').exec('scripts/setup-pre-commit.bat') : require('child_process').exec('bash scripts/setup-pre-commit.sh')\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
