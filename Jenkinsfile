@@ -30,9 +30,15 @@ pipeline {
             }
         }
 
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Check Node Version') {
-                    tools { nodejs 'Node18' }
-                    steps {
+            tools { nodejs 'Node22' }
+            steps {
                 script {
                     if (isUnix()) {
                         sh 'node -v'
@@ -45,10 +51,24 @@ pipeline {
             }
         }
 
+        stage('Check PATH') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'echo $PATH'
+                        sh 'which node || command -v node || true'
+                    } else {
+                        bat 'echo %PATH%'
+                        bat 'where node'
+                    }
+                }
+            }
+        }
+
         stage('Install') {
-                    tools { nodejs 'Node18' }
-                    steps {
-                        script {
+            tools { nodejs 'Node22' }
+            steps {
+                script {
                     if (isUnix()) {
                         sh 'node -v && npm -v'
                         sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
@@ -61,6 +81,7 @@ pipeline {
         }
 
         stage('Lint & Type Check') {
+            tools { nodejs 'Node22' }
             steps {
                 script {
                     if (isUnix()) {
@@ -75,6 +96,7 @@ pipeline {
         }
 
         stage('Test') {
+            tools { nodejs 'Node22' }
             steps {
                 script {
                     if (isUnix()) {
@@ -87,6 +109,7 @@ pipeline {
         }
 
         stage('Build') {
+            tools { nodejs 'Node22' }
             steps {
                 script {
                     if (isUnix()) {
