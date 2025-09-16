@@ -8,12 +8,17 @@ pipeline {
     }
 
     environment {
-        // Keep env minimal to avoid missing credentials/tools
         GIT_COMMIT_SHORT = ''
         GIT_BRANCH = ''
     }
     
     stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -30,12 +35,6 @@ pipeline {
             }
         }
 
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
-        
         stage('Debug Workspace') {
             steps {
                 dir("${env.WORKSPACE}") {
@@ -51,49 +50,33 @@ pipeline {
         }
 
         stage('Check Node Version') {
-            tools { nodejs 'Node22' }
-            steps {
-                dir("${env.WORKSPACE}") {
-                    script {
-                        if (isUnix()) {
-                            sh 'node -v'
-                            sh 'npm -v'
-                        } else {
-                            bat 'node -v'
-                            bat 'npm -v'
-                        }
-                    }
-                }
-            }
-        }
-
-        stage('Check PATH') {
-            steps {
-                dir("${env.WORKSPACE}") {
-                    script {
-                        if (isUnix()) {
-                            sh 'echo $PATH'
-                            sh 'which node || command -v node || true'
-                        } else {
-                            bat 'echo %PATH%'
-                            bat 'where node'
-                        }
-                    }
-                }
-            }
-        }
-
-        stage('Install') {
-            tools { nodejs 'Node22' }
+            tools { nodejs 'Node22' } // Nom exact de ton NodeJS tool dans Jenkins
             steps {
                 dir("${env.WORKSPACE}") {
                     script {
                         if (isUnix()) {
                             sh 'node -v && npm -v'
-                            sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
                         } else {
                             bat 'node -v & npm -v'
-                            bat 'if exist package-lock.json (npm ci --prefer-offline --no-audit) else (npm install --no-audit)'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            tools { nodejs 'Node22' }
+            steps {
+                dir("${env.WORKSPACE}") {
+                    script {
+                        if (fileExists('package.json')) {
+                            if (isUnix()) {
+                                sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
+                            } else {
+                                bat 'if exist package-lock.json (npm ci --prefer-offline --no-audit) else (npm install --no-audit)'
+                            }
+                        } else {
+                            error "package.json introuvable dans ${env.WORKSPACE} !"
                         }
                     }
                 }
