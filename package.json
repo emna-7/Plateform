@@ -27,7 +27,11 @@
     "health:check": "./scripts/health-check.sh",
     "pre-commit:install": "pre-commit install",
     "pre-commit:run": "pre-commit run --all-files",
-    "pre-commit:setup": "node -e \"process.platform === 'win32' ? require('child_process').exec('scripts/setup-pre-commit.bat') : require('child_process').exec('bash scripts/setup-pre-commit.sh')\""
+    "pre-commit:setup": "node -e \"process.platform === 'win32' ? require('child_process').exec('scripts/setup-pre-commit.bat') : require('child_process').exec('bash scripts/setup-pre-commit.sh')\"",
+    "security:owasp": "node -e \"process.platform === 'win32' ? require('child_process').exec('scripts/owasp-security-scan.bat') : require('child_process').exec('bash scripts/owasp-security-scan.sh')\"",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:audit:high": "npm audit --audit-level=high",
+    "security:outdated": "npm outdated"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
