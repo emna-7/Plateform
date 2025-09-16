@@ -407,7 +407,7 @@ export function OrganizationPresentationSection({ form }: OrganizationPresentati
                                     <RadioGroup
                                       onValueChange={(value) => field.onChange(parseInt(value))}
                                       defaultValue={field.value?.toString()}
-                                      value={field.value?.toString()}
+                                      value={field.value?.toString() ?? ''}
                                       className="flex flex-col space-y-1"
                                     >
                                       {[1, 2, 3].map((level) => (
@@ -441,7 +441,7 @@ export function OrganizationPresentationSection({ form }: OrganizationPresentati
                                     <RadioGroup
                                       onValueChange={(value) => field.onChange(parseInt(value))}
                                       defaultValue={field.value?.toString()}
-                                      value={field.value?.toString()}
+                                      value={field.value?.toString() ?? ''}
                                       className="flex flex-col space-y-1"
                                     >
                                       {[1, 2, 3].map((level) => (
@@ -475,7 +475,7 @@ export function OrganizationPresentationSection({ form }: OrganizationPresentati
                                     <RadioGroup
                                       onValueChange={(value) => field.onChange(parseInt(value))}
                                       defaultValue={field.value?.toString()}
-                                      value={field.value?.toString()}
+                                      value={field.value?.toString() ?? ''}
                                       className="flex flex-col space-y-1"
                                     >
                                       {[1, 2, 3].map((level) => (

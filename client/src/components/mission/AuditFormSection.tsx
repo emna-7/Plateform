@@ -72,7 +72,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Titre de la mission</FormLabel>
               <FormControl>
@@ -85,7 +85,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="companyName"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Nom de l'entreprise</FormLabel>
               <FormControl>
@@ -98,13 +98,13 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="companyType"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Type d'entreprise</FormLabel>
               <Select 
                 onValueChange={field.onChange} 
-                defaultValue={field.value}
-                value={field.value}
+                defaultValue={field.value ?? ""}
+                value={field.value ?? ""}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -112,7 +112,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {companyTypes.map((type) => (
+                  {companyTypes.map((type: any) => (
                     <SelectItem key={type} value={type}>{type}</SelectItem>
                   ))}
                 </SelectContent>
@@ -124,7 +124,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="registrationNumber"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Numéro SIRET</FormLabel>
               <FormControl>
@@ -137,7 +137,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="creationDate"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Date de création</FormLabel>
               <FormControl>
@@ -150,13 +150,13 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="activitySector"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Secteur d'activité</FormLabel>
               <Select 
                 onValueChange={field.onChange} 
-                defaultValue={field.value}
-                value={field.value}
+                defaultValue={field.value ?? ""}
+                value={field.value ?? ""}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -164,7 +164,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {activitySectors.map((sector) => (
+                  {activitySectors.map((sector: any) => (
                     <SelectItem key={sector} value={sector}>{sector}</SelectItem>
                   ))}
                 </SelectContent>
@@ -178,7 +178,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
       <FormField
         control={form.control}
         name="address"
-        render={({ field }) => (
+        render={({ field }: any) => (
           <FormItem className="mb-6">
             <FormLabel>Adresse</FormLabel>
             <FormControl>
@@ -210,7 +210,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="annualRevenue"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Chiffre d'affaires annuel (€)</FormLabel>
               <FormControl>
@@ -223,7 +223,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="profitMargin"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Marge bénéficiaire (%)</FormLabel>
               <FormControl>
@@ -236,7 +236,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="totalAssets"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Total des actifs (€)</FormLabel>
               <FormControl>
@@ -249,7 +249,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="totalDebts"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormLabel>Total des dettes (€)</FormLabel>
               <FormControl>
@@ -280,7 +280,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="financialRatios.liquidity"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <FormControl>
                           <Input type="number" step="0.1" placeholder="Ex: 2.1" {...field} />
@@ -294,12 +294,12 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="financialRatios.liquidityEvaluation"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <Select 
                           onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          value={field.value}
+                          defaultValue={field.value ?? ""}
+                          value={field.value ?? ""}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -324,7 +324,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="financialRatios.debt"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <FormControl>
                           <Input type="number" step="0.1" placeholder="Ex: 0.4" {...field} />
@@ -338,12 +338,12 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="financialRatios.debtEvaluation"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <Select 
                           onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          value={field.value}
+                          defaultValue={field.value ?? ""}
+                          value={field.value ?? ""}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -368,7 +368,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="financialRatios.roe"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <FormControl>
                           <Input type="number" step="0.1" placeholder="Ex: 15.2" {...field} />
@@ -382,12 +382,12 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="financialRatios.roeEvaluation"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <Select 
                           onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          value={field.value}
+                          defaultValue={field.value ?? ""}
+                          value={field.value ?? ""}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -414,7 +414,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
       <FormField
         control={form.control}
         name="financialComments"
-        render={({ field }) => (
+        render={({ field }: any) => (
           <FormItem className="mb-6">
             <FormLabel>Commentaires sur la situation financière</FormLabel>
             <FormControl>
@@ -522,12 +522,12 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="complianceStatus.gdpr"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <Select 
                           onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          value={field.value}
+                          defaultValue={field.value ?? ""}
+                          value={field.value ?? ""}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -535,7 +535,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {complianceStatusOptions.map((option) => (
+                            {complianceStatusOptions.map((option: any) => (
                               <SelectItem key={option} value={option}>{option}</SelectItem>
                             ))}
                           </SelectContent>
@@ -548,7 +548,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="complianceStatus.gdprComments"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <FormControl>
                           <Textarea rows={2} placeholder="Commentaires sur la conformité RGPD..." {...field} />
@@ -564,12 +564,12 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="complianceStatus.laborLaw"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <Select 
                           onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          value={field.value}
+                          defaultValue={field.value ?? ""}
+                          value={field.value ?? ""}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -577,7 +577,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {complianceStatusOptions.map((option) => (
+                            {complianceStatusOptions.map((option: any) => (
                               <SelectItem key={option} value={option}>{option}</SelectItem>
                             ))}
                           </SelectContent>
@@ -590,7 +590,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="complianceStatus.laborLawComments"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <FormControl>
                           <Textarea rows={2} placeholder="Commentaires sur la conformité au droit du travail..." {...field} />
@@ -606,12 +606,12 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="complianceStatus.industryStandards"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <Select 
                           onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          value={field.value}
+                          defaultValue={field.value ?? ""}
+                          value={field.value ?? ""}
                         >
                           <FormControl>
                             <SelectTrigger>
@@ -619,7 +619,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {complianceStatusOptions.map((option) => (
+                            {complianceStatusOptions.map((option: any) => (
                               <SelectItem key={option} value={option}>{option}</SelectItem>
                             ))}
                           </SelectContent>
@@ -632,7 +632,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                   <FormField
                     control={form.control}
                     name="complianceStatus.industryStandardsComments"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem className="m-0">
                         <FormControl>
                           <Textarea rows={2} placeholder="Commentaires sur la conformité aux normes sectorielles..." {...field} />
@@ -654,13 +654,13 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
           <FormField
             control={form.control}
             name="governanceStructure.shareholderStructure"
-            render={({ field }) => (
+            render={({ field }: any) => (
               <FormItem>
                 <FormLabel>Structure de l'actionnariat</FormLabel>
                 <Select 
                   onValueChange={field.onChange} 
-                  defaultValue={field.value}
-                  value={field.value}
+                  defaultValue={field.value ?? ""}
+                  value={field.value ?? ""}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -668,7 +668,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {shareholderStructureOptions.map((option) => (
+                    {shareholderStructureOptions.map((option: any) => (
                       <SelectItem key={option} value={option}>{option}</SelectItem>
                     ))}
                   </SelectContent>
@@ -680,13 +680,13 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
           <FormField
             control={form.control}
             name="governanceStructure.boardMeetings"
-            render={({ field }) => (
+            render={({ field }: any) => (
               <FormItem>
                 <FormLabel>Fréquence des réunions du conseil</FormLabel>
                 <Select 
                   onValueChange={field.onChange} 
-                  defaultValue={field.value}
-                  value={field.value}
+                  defaultValue={field.value ?? ""}
+                  value={field.value ?? ""}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -694,7 +694,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {boardMeetingOptions.map((option) => (
+                    {boardMeetingOptions.map((option: any) => (
                       <SelectItem key={option} value={option}>{option}</SelectItem>
                     ))}
                   </SelectContent>
@@ -706,23 +706,23 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
           <div className="md:col-span-2">
             <FormLabel>Existence de comités spécialisés</FormLabel>
             <div className="mt-2 space-y-2">
-              {committeeOptions.map((committee) => (
+              {committeeOptions.map((committee: any) => (
                 <FormField
                   key={committee}
                   control={form.control}
                   name="governanceStructure.committees"
-                  render={({ field }) => {
+                  render={({ field }: any) => {
                     const committees = field.value || [];
                     return (
                       <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                         <FormControl>
                           <Checkbox
                             checked={committees.includes(committee)}
-                            onCheckedChange={(checked) => {
+                            onCheckedChange={(checked: any) => {
                               if (checked) {
                                 field.onChange([...committees, committee]);
                               } else {
-                                field.onChange(committees.filter((c) => c !== committee));
+                                field.onChange(committees.filter((c: any) => c !== committee));
                               }
                             }}
                           />
@@ -757,7 +757,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
         <FormField
           control={form.control}
           name="observations"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem>
               <FormControl>
                 <Textarea rows={4} placeholder="Résumez les principales observations de l'audit..." {...field} />
@@ -780,7 +780,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
             <FormField
               control={form.control}
               name="followUpDate"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem>
                   <FormLabel>Date de la prochaine revue</FormLabel>
                   <FormControl>
@@ -793,7 +793,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
             <FormField
               control={form.control}
               name="followUpResponsible"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem>
                   <FormLabel>Responsable du suivi</FormLabel>
                   <FormControl>
@@ -806,7 +806,7 @@ export function AuditFormSection({ section, currentSection, form }: AuditFormSec
             <FormField
               control={form.control}
               name="followUpDetails"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem className="md:col-span-2">
                   <FormLabel>Modalités de suivi</FormLabel>
                   <FormControl>
