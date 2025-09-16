@@ -130,7 +130,7 @@
     "npm-audit-ci": "^1.0.0",
     "license-checker": "^25.0.0",
     "retire": "^3.0.0",
-    "complexity-report": "^0.0.0",
+    
     "unimported": "^1.0.0"
   },
   "optionalDependencies": {
