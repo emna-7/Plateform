@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 30, unit: 'MINUTES')
@@ -12,7 +12,7 @@ pipeline {
         GIT_COMMIT_SHORT = ''
         GIT_BRANCH = ''
     }
-
+    
     stages {
         stage('Checkout') {
             steps {
@@ -30,9 +30,23 @@ pipeline {
             }
         }
 
-        stage('Install') {
-            steps {
+        stage('Check Node Version') {
+                    steps {
                 script {
+                    if (isUnix()) {
+                        sh 'node -v'
+                        sh 'npm -v'
+                    } else {
+                        bat 'node -v'
+                        bat 'npm -v'
+                    }
+                }
+            }
+        }
+
+        stage('Install') {
+                    steps {
+                        script {
                     if (isUnix()) {
                         sh 'node -v && npm -v'
                         sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
@@ -90,7 +104,7 @@ pipeline {
             }
         }
     }
-
+    
     post {
         always {
             cleanWs()
