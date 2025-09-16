@@ -1,0 +1,61 @@
+# Artillery load testing configuration for DevSecOps pipeline
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 10
+      name: "Ramp up load"
+    - duration: 300
+      arrivalRate: 20
+      name: "Sustained load"
+    - duration: 60
+      arrivalRate: 5
+      name: "Cool down"
+  defaults:
+    headers:
+      User-Agent: "Artillery Load Test"
+      Content-Type: "application/json"
+
+scenarios:
+  - name: "Health Check"
+    weight: 30
+    flow:
+      - get:
+          url: "/health"
+          expect:
+            - statusCode: 200
+
+  - name: "API Endpoints"
+    weight: 50
+    flow:
+      - get:
+          url: "/api/missions"
+          expect:
+            - statusCode: [200, 401]
+      - get:
+          url: "/api/contacts"
+          expect:
+            - statusCode: [200, 401]
+      - get:
+          url: "/api/reports"
+          expect:
+            - statusCode: [200, 401]
+
+  - name: "Static Assets"
+    weight: 20
+    flow:
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+      - get:
+          url: "/assets/index.css"
+          expect:
+            - statusCode: 200
+      - get:
+          url: "/assets/index.js"
+          expect:
+            - statusCode: 200
