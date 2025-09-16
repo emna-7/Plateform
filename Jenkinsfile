@@ -35,10 +35,22 @@ pipeline {
                 deleteDir()
             }
         }
+        
+        stage('Debug Workspace') {
+                    steps {
+                        script {
+                    if (isUnix()) {
+                        sh 'ls -la'
+                    } else {
+                        bat 'dir /b'
+                    }
+                }
+            }
+        }
 
         stage('Check Node Version') {
             tools { nodejs 'Node22' }
-            steps {
+                    steps {
                 script {
                     if (isUnix()) {
                         sh 'node -v'
@@ -52,7 +64,7 @@ pipeline {
         }
 
         stage('Check PATH') {
-            steps {
+                    steps {
                 script {
                     if (isUnix()) {
                         sh 'echo $PATH'
@@ -67,8 +79,8 @@ pipeline {
 
         stage('Install') {
             tools { nodejs 'Node22' }
-            steps {
-                script {
+                    steps {
+                        script {
                     if (isUnix()) {
                         sh 'node -v && npm -v'
                         sh 'if [ -f package-lock.json ]; then npm ci --prefer-offline --no-audit; else npm install --no-audit; fi'
